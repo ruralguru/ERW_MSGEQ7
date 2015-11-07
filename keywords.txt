@@ -1,0 +1,24 @@
+#######################################
+# Syntax Coloring Map: ERW_MSGEQ7
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ERW_MSGEQ7			KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin				KEYWORD2
+beginMono			KEYWORD2
+getAmplitudes		KEYWORD2
+getMonoAmplitudes	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+				LITERAL1
