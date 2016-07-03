@@ -1,14 +1,14 @@
 /*Editor: Earl R. Watkins II Title: ERW_MSGEQ7.h Date: 11/04/2015
 	Thanks to: Dan Wagner
-	
+
 	Mixed Signal Integration MSGEQ7 Graphic Equalizer Library
 	7 Bands: 63Hz, 160Hz, 400Hz, 1kHz, 2.5kHz, 6.25kHz, and 16kHz
-	
+
 	Notes:
-	
+
 	Based on: Knowlege gained from Kansas State University ECE 241 Intro Computer Engg F'15
-			  
-	This example code uses the "beerware" license. Use it, modify it, and/or reference it. 
+
+	This example code uses the "beerware" license. Use it, modify it, and/or reference it.
 	If you find it useful, buy me an ice cold tasty beverage someday.
 */
 
@@ -81,6 +81,42 @@ void ERW_MSGEQ7::getAmplitudes(int(&leftArray)[7], int (&rightArray)[7])
 	interrupts();// Allow interrupts.
 }
 
+void ERW_MSGEQ7::getSingleStereoAmplitude(int(&leftArray)[7], int (&rightArray)[7], int channelNumber)
+{//TODO: make work
+	noInterrupts(); // Make sure interrupts don't interfere.
+	digitalWrite(ERW_MSGEQ7::reset,HIGH); // Start reset in HIGH state.
+	digitalWrite(ERW_MSGEQ7::reset,LOW); // Start reset in LOW state.
+	for(int i = 0; i < (channelNumber-1); i++ )
+	{
+		digitalWrite(ERW_MSGEQ7::strobe,LOW); // Start strobe in LOW state.
+		delayMicroseconds(37);// Allow results to settle.
+		digitalWrite(ERW_MSGEQ7::strobe,HIGH); // Start strobe in HIGH state.
+	}
+	digitalWrite(ERW_MSGEQ7::strobe,LOW); // Start strobe in LOW state.
+	delayMicroseconds(37);// Allow results to settle.
+	leftArray[channelNumber] = analogRead(ERW_MSGEQ7::lRead); // Assign ADC value to left array.
+	rightArray[channelNumber] = analogRead(ERW_MSGEQ7::rRead); // Assign ADC value to right array.
+	interrupts();// Allow interrupts.
+}
+
+void ERW_MSGEQ7::getSingleMonoAmplitude(int(&monoArray)[7], int channelNumber)
+{//TODO: make work
+	noInterrupts(); // Make sure interrupts don't interfere.
+	digitalWrite(ERW_MSGEQ7::reset,HIGH); // Start reset in HIGH state.
+	digitalWrite(ERW_MSGEQ7::reset,LOW); // Start reset in LOW state.
+	for(int i = 0; i < (channelNumber-1); i++ )
+	{
+		digitalWrite(ERW_MSGEQ7::strobe,LOW); // Start strobe in LOW state.
+		delayMicroseconds(37);// Allow results to settle.
+		digitalWrite(ERW_MSGEQ7::strobe,HIGH); // Start strobe in HIGH state.
+	}
+	digitalWrite(ERW_MSGEQ7::strobe,LOW); // Start strobe in LOW state.
+	delayMicroseconds(37);// Allow results to settle.
+	leftArray[channelNumber] = analogRead(ERW_MSGEQ7::lRead); // Assign ADC value to left array.
+	rightArray[channelNumber] = analogRead(ERW_MSGEQ7::rRead); // Assign ADC value to right array.
+	interrupts();// Allow interrupts.
+}
+
 float ERW_MSGEQ7::getBaseFrequency(int frequencyRead)
 {
 	noInterrupts();
@@ -88,7 +124,7 @@ float ERW_MSGEQ7::getBaseFrequency(int frequencyRead)
 	int firstReading = analogRead(frequencyRead);
 	do
 	{
-		
+
 	}
 	while(goOn);
 	interrupts();
