@@ -7,7 +7,7 @@ Mixed Signals Graphic equilizer IC - MSGEQ7
 
 [*Mixed Signals MSGEQ7*](https://www.sparkfun.com/products/10468)
 
-This is a Graphic Equilizer chip.
+This is a Graphic Equilizer chip. So much to be added
 
 Repository Contents
 -------------------
